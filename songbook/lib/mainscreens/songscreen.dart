@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:songbook/sources/utility.dart';
@@ -31,7 +29,6 @@ class _SongscreenState extends State<Songscreen> {
   @override
   void initState() {
     super.initState();
-    loadBookmarks();
     loadFontSize();
   }
 
@@ -48,48 +45,6 @@ class _SongscreenState extends State<Songscreen> {
       return '${words.take(2).join(' ')}...';
     }
     return title;
-  }
-
-  Future<void> loadBookmarks() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      bookmarkedSongs = prefs.getStringList('bookmarkedSongs')?.map((song) => json.decode(song)).toSet() ?? {};
-    });
-
-    final currentSong = {
-      'title': widget.songTitle,
-      'name': widget.songSubtitle,
-      'album': widget.albumName,
-      'lyrics': widget.lyrics,
-    };
-
-    setState(() {
-      isBookmarked = bookmarkedSongs.contains(currentSong);
-    });
-  }
-
-  void toggleBookmark() async {
-    final prefs = await SharedPreferences.getInstance();
-    final currentSong = {
-      'name': widget.songTitle,
-      'english': widget.songSubtitle,
-      'album': widget.albumName,
-      'lyrics': widget.lyrics,
-    };
-
-    setState(() {
-      if (bookmarkedSongs.contains(currentSong)) {
-        bookmarkedSongs.remove(currentSong);
-      } else {
-        bookmarkedSongs.add(currentSong);
-      }
-      isBookmarked = !isBookmarked;
-    });
-
-    prefs.setStringList(
-      'bookmarkedSongs',
-      bookmarkedSongs.map((song) => json.encode(song)).toList(),
-    );
   }
 
   @override
@@ -177,27 +132,6 @@ class _SongscreenState extends State<Songscreen> {
                           color: kblack,
                         ),
                       ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 140, right: 30),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: GestureDetector(
-                    onTap: toggleBookmark,
-                    child: Icon(
-                      isBookmarked ? Icons.bookmark : Icons.bookmark_add_outlined,
-                      size: 45,
-                      color: kyellow,
-                      shadows: const [
-                        Shadow(
-                          color: Colors.grey,
-                          offset: Offset(0, 2),
-                          blurRadius: 2,
-                        ),
-                      ],
                     ),
                   ),
                 ),

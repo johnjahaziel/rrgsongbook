@@ -69,8 +69,10 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
 
   Future<void> loadBookmarks() async {
     final prefs = await SharedPreferences.getInstance();
+    final bookmarkList = prefs.getStringList('bookmarkedSongs') ?? [];
+
     setState(() {
-      bookmarkedSongs = prefs.getStringList('bookmarkedSongs')?.map((song) => json.decode(song)).toSet() ?? {};
+      bookmarkedSongs = bookmarkList.map((song) => json.decode(song)).toSet();
     });
   }
 
@@ -78,8 +80,8 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
     final prefs = await SharedPreferences.getInstance();
 
     setState(() {
-      if (bookmarkedSongs.contains(song)) {
-        bookmarkedSongs.remove(song);
+      if (bookmarkedSongs.any((s) => s['id'] == song['id'])) {
+        bookmarkedSongs.removeWhere((s) => s['id'] == song['id']);
       } else {
         bookmarkedSongs.add(song);
       }
@@ -87,7 +89,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
 
     prefs.setStringList(
       'bookmarkedSongs',
-      bookmarkedSongs.map((song) => json.encode(song)).toSet().toList(),
+      bookmarkedSongs.map((song) => json.encode(song)).toList(),
     );
   }
 
@@ -175,6 +177,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                         itemCount: filteredSongs.length,
                         itemBuilder: (context, index) {
                           final song = filteredSongs[index];
+                          final isBookmarked = bookmarkedSongs.any((s) => s['id'] == song['id']);
                           return GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -192,7 +195,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                             child: SongCard(
                               songTitle: song['english'] ?? 'Untitled',
                               songSubtitle: song['name'] ?? 'Unknown',
-                              isBookmarked: bookmarkedSongs.contains(song),
+                              isBookmarked: isBookmarked,
                               onBookmarkToggle: () => toggleBookmark(song),
                             ),
                           );

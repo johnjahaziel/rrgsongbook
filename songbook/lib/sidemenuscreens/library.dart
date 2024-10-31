@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:songbook/mainscreens/onboardingscreen.dart';
 import 'package:songbook/sources/songcard.dart';
 import 'package:songbook/sources/utility.dart';
 
@@ -42,6 +45,8 @@ class _LibraryState extends State<Library> {
       'bookmarkedSongs',
       bookmarkedSongs.map((song) => json.encode(song)).toList(),
     );
+
+    Navigator.pushNamed(context, Onboardingscreen.id);
   }
 
   @override
