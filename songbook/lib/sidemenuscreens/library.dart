@@ -53,7 +53,7 @@ class _LibraryState extends State<Library> {
             return gradient.createShader(bounds);
           },
           child: const Text(
-            'Bookmarks',
+            'Favourites',
             style: TextStyle(
               fontFamily: 'BalsamiqSans',
               fontSize: 25,
@@ -71,7 +71,7 @@ class _LibraryState extends State<Library> {
           children: [
             const Padding(
               padding: EdgeInsets.only(left: 2),
-              child: Text('BOOKMARKED SONGS', style: ktext2),
+              child: Text('FAVOURITE SONGS', style: ktext2),
             ),
             const Padding(
               padding: EdgeInsets.only(left: 2, right: 2),
@@ -84,7 +84,7 @@ class _LibraryState extends State<Library> {
             const SizedBox(height: 10),
             Expanded(
               child: bookmarkedSongs.isEmpty
-                  ? const Center(child: Text('No Bookmarked Songs',style: ktext8,))
+                  ? const Center(child: Text('No Favourite Songs',style: ktext8,))
                   : ListView.builder(
                       itemCount: bookmarkedSongs.length,
                       itemBuilder: (context, index) {

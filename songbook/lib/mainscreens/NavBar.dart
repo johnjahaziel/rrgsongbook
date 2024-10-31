@@ -102,14 +102,14 @@ class NavBar extends StatelessWidget {
                       _buildDrawerItem(
                         context: context,
                         icon: Icons.bookmark_add,
-                        text: 'Library',
+                        text: 'Favourites',
                         routeName: Library.id,
                       ),
                       const SizedBox(height: 30),
                       _buildDrawerItem(
                         context: context,
                         icon: Icons.new_releases,
-                        text: 'Newly Added',
+                        text: 'New Songs',
                         routeName: Newlyadded.id,
                       ),
                       const SizedBox(height: 30),

@@ -61,7 +61,7 @@ class _NewlyaddedState extends State<Newlyadded> {
             return gradient.createShader(bounds);
           },
           child: const Text(
-            'Newly Added',
+            'New Songs',
             style: TextStyle(
               fontFamily: 'BalsamiqSans',
               fontSize: 25,
@@ -92,7 +92,7 @@ class _NewlyaddedState extends State<Newlyadded> {
             const SizedBox(height: 10),
             Expanded(
               child: newlyAddedSongs.isEmpty
-                  ? const Center(child: Text('No newly added songs',style: ktext8,))
+                  ? const Center(child: Text('No new songs',style: ktext8,))
                   : ListView.builder(
                       itemCount: newlyAddedSongs.length,
                       itemBuilder: (context, index) {
