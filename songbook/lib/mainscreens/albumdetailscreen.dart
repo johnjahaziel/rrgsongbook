@@ -39,6 +39,26 @@ class _AlbumDetailsScreenState extends State<AlbumDetailsScreen> {
         return 'vol-3';
       case 'volume - 4':
         return 'vol-4';
+      case 'volume - 5':
+        return 'vol-5';
+      case 'volume - 6':
+        return 'vol-6';
+      case 'volume - 7':
+        return 'vol-7';
+      case 'volume - 8':
+        return 'vol-8';
+      case 'volume - 9':
+        return 'vol-9';
+      case 'volume - 10':
+        return 'vol-10';
+      case 'volume - 11':
+        return 'vol-11';
+      case 'volume - 12':
+        return 'vol-12';
+      case 'volume - 13':
+        return 'vol-13';
+      case 'volume - 14':
+        return 'vol-14';
       default:
         return '';
     }
