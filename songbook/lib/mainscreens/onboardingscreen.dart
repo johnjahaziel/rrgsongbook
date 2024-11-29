@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -26,22 +25,8 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
   @override
   void initState() {
     super.initState();
-    loadSongsFromLocal();
+    fetchSongsFromApi();
     loadBookmarks();
-  }
-
-  Future<void> loadSongsFromLocal() async {
-    final prefs = await SharedPreferences.getInstance();
-    final localSongs = prefs.getString('storedSongs');
-    
-    if (localSongs != null) {
-      setState(() {
-        songs = json.decode(localSongs);
-        filteredSongs = songs;
-      });
-    } else {
-      fetchSongsFromApi();
-    }
   }
 
   Future<void> fetchSongsFromApi() async {
@@ -53,7 +38,6 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
           songs = json.decode(response.body);
           filteredSongs = songs;
         });
-        await storeSongsLocally();
       } else {
         Fluttertoast.showToast(msg: 'Failed to Load Songs');
       }
@@ -62,15 +46,9 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
     }
   }
 
-  Future<void> storeSongsLocally() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('storedSongs', json.encode(songs));
-  }
-
   Future<void> loadBookmarks() async {
     final prefs = await SharedPreferences.getInstance();
     final bookmarkList = prefs.getStringList('bookmarkedSongs') ?? [];
-
     setState(() {
       bookmarkedSongs = bookmarkList.map((song) => json.decode(song)).toSet();
     });
