@@ -8,6 +8,9 @@ class Songscreen extends StatefulWidget {
   final String songSubtitle;
   final String albumName;
   final List<String> lyrics;
+  final String scale;
+  final String beat;
+  final String tempo;
 
   const Songscreen({
     super.key,
@@ -15,6 +18,9 @@ class Songscreen extends StatefulWidget {
     required this.albumName,
     required this.lyrics,
     required this.songSubtitle,
+    required this.scale,
+    required this.beat,
+    required this.tempo,
   });
 
   @override
@@ -109,57 +115,85 @@ class _SongscreenState extends State<Songscreen> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 128, left: 125),
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      final textPainter = TextPainter(
-                        text: TextSpan(
-                          text: 'Album: ${widget.albumName}',
-                          style: const TextStyle(
-                            fontFamily: 'BalsamiqSans',
-                            fontSize: 16,
-                            color: kblack,
-                          ),
-                        ),
-                        textDirection: TextDirection.ltr,
-                      )..layout();
-                      double containerWidth = textPainter.width + 20;
-                      return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: kyellow,
-                          boxShadow: const [
-                            BoxShadow(
-                              offset: Offset(0, 2),
-                              color: Colors.grey,
-                              blurRadius: 2,
-                            ),
-                          ],
-                        ),
-                        height: 38,
-                        width: containerWidth,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 3),
-                          child: Center(
-                            child: Text(
-                              'Album: ${widget.albumName}',
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 128),
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final textPainter = TextPainter(
+                            text: TextSpan(
+                              text: 'Album: ${widget.albumName}',
                               style: const TextStyle(
                                 fontFamily: 'BalsamiqSans',
                                 fontSize: 16,
                                 color: kblack,
                               ),
                             ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                            textDirection: TextDirection.ltr,
+                          )..layout();
+                          double containerWidth = textPainter.width + 20;
+
+                          return Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: kyellow,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      offset: Offset(0, 2),
+                                      color: Colors.grey,
+                                      blurRadius: 2,
+                                    ),
+                                  ],
+                                ),
+                                height: 38,
+                                width: containerWidth,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 3),
+                                  child: Center(
+                                    child: Text(
+                                      'Album: ${widget.albumName}',
+                                      style: const TextStyle(
+                                        fontFamily: 'BalsamiqSans',
+                                        fontSize: 16,
+                                        color: kblack,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              SizedBox(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(widget.beat, style: ktext4),
+                                    const SizedBox(width: 5),
+                                    const Text('|', style: ktext1),
+                                    const SizedBox(width: 5),
+                                    Text('Tempo: ${widget.tempo}', style: ktext4),
+                                    const SizedBox(width: 5),
+                                    const Text('|', style: ktext1),
+                                    const SizedBox(width: 5),
+                                    Text(widget.scale, style: ktext4),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.only(left: 20,right: 20,bottom: 20,top: 10),
               child: Text(
                 widget.lyrics.join("\n"),
                 style: TextStyle(

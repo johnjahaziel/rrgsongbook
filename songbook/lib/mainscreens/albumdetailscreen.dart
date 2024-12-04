@@ -144,7 +144,10 @@ class _AlbumDetailsScreenState extends State<AlbumDetailsScreen> {
                                     songSubtitle: song['name'] ?? 'Unknown',
                                     songTitle: song['english'] ?? 'Unknown Song',
                                     albumName: song['album'] ?? 'Unknown',
-                                    lyrics: List<String>.from(song['lyrics'] ?? [])
+                                    lyrics: List<String>.from(song['lyrics'] ?? []),
+                                    scale: song['scale'] ?? 'Unknown',
+                                    beat: song['beat'] ?? 'Unknown',
+                                    tempo: song['tempo'] ?? 'Unknown',
                                   ),
                                 ),
                               );

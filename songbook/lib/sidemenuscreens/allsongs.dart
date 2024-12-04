@@ -101,6 +101,9 @@ class _AllsongsState extends State<Allsongs> {
                                   songTitle: song['english'] ?? 'Unknown Song',
                                   albumName: song['album'] ?? 'Unknown',
                                   lyrics: List<String>.from(song['lyrics'] ?? []),
+                                  scale: song['scale'] ?? 'Unknown',
+                                  beat: song['beat'] ?? 'Unknown',
+                                  tempo: song['tempo'] ?? 'Unknown',
                                 ),
                               ),
                             );

@@ -24,7 +24,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
   TextEditingController searchController = TextEditingController();
   ScrollController scrollController = ScrollController();
   List<String> alphabet = [];
-  Map<String, int> indexMap = {}; // Map to hold starting index of each letter
+  Map<String, int> indexMap = {};
 
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
       String firstLetter = (songs[i]['english'] ?? '').toString().toUpperCase().substring(0, 1);
       if (!alphabet.contains(firstLetter)) {
         alphabet.add(firstLetter);
-        indexMap[firstLetter] = i; // Store index of first song starting with this letter
+        indexMap[firstLetter] = i;
       }
     }
   }
@@ -188,6 +188,9 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                                     songTitle: song['english'] ?? 'Unknown Song',
                                     albumName: song['album'] ?? 'Unknown',
                                     lyrics: List<String>.from(song['lyrics'] ?? []),
+                                    scale: song['scale'] ?? 'Unknown',
+                                    beat: song['beat'] ?? 'Unknown',
+                                    tempo: song['tempo'] ?? 'Unknown',
                                   ),
                                 ),
                               );

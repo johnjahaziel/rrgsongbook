@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const Onboardingscreen(),
         Onboardingscreen.id: (context) => const Onboardingscreen(),
-        Songscreen.id: (context) => const Songscreen(songTitle: '', albumName: '', lyrics: [], songSubtitle: '',),
+        Songscreen.id: (context) => const Songscreen(songTitle: '', albumName: '', lyrics: [], songSubtitle: '',scale: '',beat: '',tempo: ''),
         Newlyadded.id:(context) => const Newlyadded(),
         Albumscreen.id: (context) => const Albumscreen(),
         Allsongs.id: (context) => const Allsongs(),
