@@ -30,31 +30,31 @@ const ktext3 = TextStyle(
 const ktext4 = TextStyle(
   fontFamily: 'BalsamiqSans',
   color: kblack,
-  fontSize: 22,
+  fontSize: 16,
 );
 
 const ktext5 = TextStyle(
   fontFamily: 'BalsamiqSans',
   color: kblack,
-  fontSize: 16,
+  fontSize: 15,
 );
 
 const ktext6 = TextStyle(
   fontWeight: FontWeight.bold,
   color: kblack,
-  fontSize: 16,
+  fontSize: 15,
 );
 
 const ktext7 = TextStyle(
   fontFamily: 'BalsamiqSans',
   color: Colors.black,
-  fontSize: 15,
+  fontSize: 12,
 );
 
 const ktext8 = TextStyle(
   fontFamily: 'BalsamiqSans',
   color: Colors.black,
-  fontSize: 18,
+  fontSize: 16,
 );
 
 const RadialGradient gradient = RadialGradient(

@@ -21,16 +21,22 @@ class _AllsongsState extends State<Allsongs> {
   @override
   void initState() {
     super.initState();
-    fetchsongs();
+    fetchSongs();
   }
 
-  Future<void> fetchsongs() async {
+  Future<void> fetchSongs() async {
     const String apiUrl = "https://app.reegangomez.com/api/songs";
     try {
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
         setState(() {
           songs = json.decode(response.body);
+          // Sort songs alphabetically by "name"
+          songs.sort((a, b) {
+            final nameA = (a['name'] ?? '').toLowerCase();
+            final nameB = (b['name'] ?? '').toLowerCase();
+            return nameA.compareTo(nameB);
+          });
         });
       } else {
         Fluttertoast.showToast(msg: 'Failed to Load Songs');
@@ -86,28 +92,28 @@ class _AllsongsState extends State<Allsongs> {
                       itemBuilder: (context, index) {
                         final song = songs[index];
                         return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Songscreen(
-                                    songSubtitle: song['name'] ?? 'Unknown',
-                                    songTitle: song['english'] ?? 'Unknown Song',
-                                    albumName: song['album'] ?? 'Unknown',
-                                    lyrics: List<String>.from(song['lyrics'] ?? [])
-                                  ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Songscreen(
+                                  songSubtitle: song['name'] ?? 'Unknown',
+                                  songTitle: song['english'] ?? 'Unknown Song',
+                                  albumName: song['album'] ?? 'Unknown',
+                                  lyrics: List<String>.from(song['lyrics'] ?? []),
                                 ),
-                              );
-                            },
-                            child: SongCard(
-                              songTitle: song['english'] ?? 'Untitled',
-                              songSubtitle: song['name'] ?? 'Unknown',
-                              isBookmarked: false,
-                              onBookmarkToggle: null,
-                            ),
-                          );
-                        },
-                      ),
+                              ),
+                            );
+                          },
+                          child: SongCard(
+                            songTitle: song['english'] ?? 'Untitled',
+                            songSubtitle: song['name'] ?? 'Unknown',
+                            isBookmarked: false,
+                            onBookmarkToggle: null,
+                          ),
+                        );
+                      },
+                    ),
             ),
           ],
         ),

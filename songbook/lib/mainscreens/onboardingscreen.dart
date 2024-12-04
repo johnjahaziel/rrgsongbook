@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -21,6 +22,9 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
   List<dynamic> filteredSongs = [];
   Set<dynamic> bookmarkedSongs = {};
   TextEditingController searchController = TextEditingController();
+  ScrollController scrollController = ScrollController();
+  List<String> alphabet = [];
+  Map<String, int> indexMap = {}; // Map to hold starting index of each letter
 
   @override
   void initState() {
@@ -34,15 +38,31 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
     try {
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
+        List<dynamic> fetchedSongs = json.decode(response.body);
+        fetchedSongs.sort((a, b) =>
+            (a['english'] ?? '').toString().compareTo((b['english'] ?? '').toString()));
         setState(() {
-          songs = json.decode(response.body);
-          filteredSongs = songs;
+          songs = fetchedSongs;
+          filteredSongs = fetchedSongs;
+          buildAlphabetIndex();
         });
       } else {
         Fluttertoast.showToast(msg: 'Failed to Load Songs');
       }
     } catch (e) {
       Fluttertoast.showToast(msg: 'Error Fetching Songs');
+    }
+  }
+
+  void buildAlphabetIndex() {
+    alphabet = [];
+    indexMap = {};
+    for (int i = 0; i < songs.length; i++) {
+      String firstLetter = (songs[i]['english'] ?? '').toString().toUpperCase().substring(0, 1);
+      if (!alphabet.contains(firstLetter)) {
+        alphabet.add(firstLetter);
+        indexMap[firstLetter] = i; // Store index of first song starting with this letter
+      }
     }
   }
 
@@ -105,53 +125,55 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
             ),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
+        body: Row(
+          children: [
+            Expanded(
+              child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextField(
-                  controller: searchController,
-                  decoration: textFieldDecor(
-                    'Search',
-                    const Icon(
-                      Icons.search_rounded,
-                      size: 45,
-                      color: kyellow,
-                      shadows: [
-                        Shadow(
-                          color: Colors.grey,
-                          offset: Offset(0, 1),
-                          blurRadius: 2,
-                        )
-                      ],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: TextField(
+                        controller: searchController,
+                        decoration: textFieldDecor(
+                          'Search',
+                          const Icon(
+                            Icons.search_rounded,
+                            size: 45,
+                            color: kyellow,
+                            shadows: [
+                              Shadow(
+                                color: Colors.grey,
+                                offset: Offset(0, 1),
+                                blurRadius: 2,
+                              )
+                            ],
+                          ),
+                        ),
+                        onChanged: (value) {
+                          filterSongs(value);
+                        },
+                      ),
                     ),
-                  ),
-                  onChanged: (value) {
-                    filterSongs(value);
-                  },
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Padding(
-                padding: EdgeInsets.only(left: 12),
-                child: Text('SONGS', style: ktext2),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 12, right: 12),
-                child: Divider(
-                  height: 5,
-                  thickness: 2,
-                  color: Color.fromARGB(255, 56, 56, 56),
-                ),
-              ),
-              const SizedBox(height: 12),
-              Expanded(
-                child: filteredSongs.isEmpty
-                    ? const Center(child: CircularProgressIndicator())
-                    : ListView.builder(
+                    const SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 12),
+                      child: Text('SONGS', style: ktext2),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 12, right: 12),
+                      child: Divider(
+                        height: 5,
+                        thickness: 2,
+                        color: Color.fromARGB(255, 56, 56, 56),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Expanded(
+                      child: ListView.builder(
+                        controller: scrollController,
                         itemCount: filteredSongs.length,
                         itemBuilder: (context, index) {
                           final song = filteredSongs[index];
@@ -179,9 +201,12 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                           );
                         },
                       ),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

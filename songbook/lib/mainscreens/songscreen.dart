@@ -65,25 +65,28 @@ class _SongscreenState extends State<Songscreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 35, left: 20, right: 20),
+                  padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ShaderMask(
-                        shaderCallback: (Rect bounds) {
-                          return gradient.createShader(bounds);
-                        },
-                        child: Text(
-                          formatTitle(widget.songTitle),
-                          style: const TextStyle(
-                            fontFamily: 'BalsamiqSans',
-                            fontSize: 28,
-                            color: Colors.white,
+                      Expanded(
+                        child: ShaderMask(
+                          shaderCallback: (Rect bounds) {
+                            return gradient.createShader(bounds);
+                          },
+                          child: Text(
+                            formatTitle(widget.songTitle),
+                            style: const TextStyle(
+                              fontFamily: 'BalsamiqSans',
+                              fontSize: 25,
+                              color: Colors.white,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
-                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
+                      const SizedBox(width: 10),
                       GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
@@ -108,33 +111,49 @@ class _SongscreenState extends State<Songscreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 128, left: 125),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: kyellow,
-                      boxShadow: const [
-                        BoxShadow(
-                          offset: Offset(0, 2),
-                          color: Colors.grey,
-                          blurRadius: 2,
-                        ),
-                      ],
-                    ),
-                    height: 38,
-                    width: 160,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 3),
-                      child: Center(
-                        child: Text(
-                          'Album: ${widget.albumName}',
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final textPainter = TextPainter(
+                        text: TextSpan(
+                          text: 'Album: ${widget.albumName}',
                           style: const TextStyle(
                             fontFamily: 'BalsamiqSans',
-                            fontSize: 18,
+                            fontSize: 16,
                             color: kblack,
                           ),
                         ),
-                      ),
-                    ),
+                        textDirection: TextDirection.ltr,
+                      )..layout();
+                      double containerWidth = textPainter.width + 20;
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: kyellow,
+                          boxShadow: const [
+                            BoxShadow(
+                              offset: Offset(0, 2),
+                              color: Colors.grey,
+                              blurRadius: 2,
+                            ),
+                          ],
+                        ),
+                        height: 38,
+                        width: containerWidth,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 3),
+                          child: Center(
+                            child: Text(
+                              'Album: ${widget.albumName}',
+                              style: const TextStyle(
+                                fontFamily: 'BalsamiqSans',
+                                fontSize: 16,
+                                color: kblack,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],

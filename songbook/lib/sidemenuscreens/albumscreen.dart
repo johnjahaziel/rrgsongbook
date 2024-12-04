@@ -42,7 +42,40 @@ class _AlbumscreenState extends State<Albumscreen> {
           padding: EdgeInsets.only(top: 20, left: padding, right: padding),
           child: Column(
             children: [
-              ...List.generate(6, (rowIndex) {
+              const Text('SPECIAL SONGS',style: ktext4,),
+              const SizedBox( height: 10,),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                      MaterialPageRoute(
+                        builder: (context) => const AlbumDetailsScreen(
+                        albumTitle: 'Special Songs',
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('images/singles.jpg'),
+                      fit: BoxFit.cover
+                    ),
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 5),
+                        color: Colors.grey,
+                        blurRadius: 3,
+                      ),
+                    ],
+                  ),
+                  height: 80,
+                ),
+              ),
+              const SizedBox( height: 30,),
+              ...List.generate(7, (rowIndex) {
                 int startIndex = rowIndex * 2 + 1;
                 return Column(
                   children: [

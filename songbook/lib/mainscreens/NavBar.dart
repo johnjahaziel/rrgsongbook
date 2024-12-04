@@ -4,12 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:songbook/sidemenuscreens/aboutus.dart';
 import 'package:songbook/sidemenuscreens/albumscreen.dart';
 import 'package:songbook/sidemenuscreens/allsongs.dart';
 import 'package:songbook/sidemenuscreens/helpscreen.dart';
 import 'package:songbook/sidemenuscreens/library.dart';
-import 'package:songbook/sidemenuscreens/newlyadded.dart';
 import 'package:songbook/sidemenuscreens/privacypolicy.dart';
 import 'package:songbook/sidemenuscreens/settings.dart';
 import 'package:songbook/sidemenuscreens/termsandconditions.dart';
@@ -108,13 +106,6 @@ class NavBar extends StatelessWidget {
                       const SizedBox(height: 30),
                       _buildDrawerItem(
                         context: context,
-                        icon: Icons.new_releases,
-                        text: 'New Songs',
-                        routeName: Newlyadded.id,
-                      ),
-                      const SizedBox(height: 30),
-                      _buildDrawerItem(
-                        context: context,
                         icon: Icons.album_rounded,
                         text: 'Albums',
                         routeName: Albumscreen.id,
@@ -125,13 +116,6 @@ class NavBar extends StatelessWidget {
                         icon: Icons.settings,
                         text: 'Settings',
                         routeName: Settings.id,
-                      ),
-                      const SizedBox(height: 30),
-                      _buildDrawerItem(
-                        context: context,
-                        icon: Icons.info,
-                        text: 'About Us',
-                        routeName: Aboutus.id,
                       ),
                       const SizedBox(height: 30),
                       GestureDetector(

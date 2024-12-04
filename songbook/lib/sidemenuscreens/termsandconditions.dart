@@ -38,7 +38,7 @@ class _TermsandconditionsState extends State<Termsandconditions> {
               'Terms and Conditions',
               style: TextStyle(
                 fontFamily: 'BalsamiqSans',
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),

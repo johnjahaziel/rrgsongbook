@@ -165,7 +165,7 @@ class _SettingsState extends State<Settings> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
@@ -177,11 +177,12 @@ class _SettingsState extends State<Settings> {
                             ),
                           ),
                           const SizedBox(width: 20),
-                          const Expanded(
+                          const Flexible(
                             child: Text(
                               'reegangomez.r@gmail.com',
                               style: ktext4,
-                              overflow: TextOverflow.visible,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
                           ),
                         ],

@@ -60,7 +60,7 @@ class _HelpscreenState extends State<Helpscreen> {
               'Welcome to e-Song Book!',
               style: TextStyle(
                 fontFamily: 'BalsamiqSans',
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -68,7 +68,7 @@ class _HelpscreenState extends State<Helpscreen> {
             const Text(
               'e-Song Book is your personal digital songbook where you can explore a vast collection of songs, bookmark your favorites, and stay updated with the latest additions.',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 fontFamily: 'BalsamiqSans',
                 color: Color.fromARGB(255, 105, 105, 105)
               ),
@@ -78,12 +78,12 @@ class _HelpscreenState extends State<Helpscreen> {
               height: 2,
               color: Colors.black,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 18),
             const Text(
               'Frequently Asked Questions (FAQs)',
               style: TextStyle(
                 fontFamily: 'BalsamiqSans',
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -113,7 +113,7 @@ class _HelpscreenState extends State<Helpscreen> {
               height: 2,
               color: Colors.black,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 18),
             const Text(
               'App Version',
               style: TextStyle(
@@ -126,7 +126,7 @@ class _HelpscreenState extends State<Helpscreen> {
             Text(
               'Version: $appVersion',
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 fontFamily: 'BalsamiqSans',
                 color: Color.fromARGB(255, 105, 105, 105)
               ),
@@ -147,7 +147,7 @@ class _HelpscreenState extends State<Helpscreen> {
             question,
             style: const TextStyle(
               fontFamily: 'BalsamiqSans',
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -155,7 +155,7 @@ class _HelpscreenState extends State<Helpscreen> {
           Text(
             answer,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 14,
               fontFamily: 'BalsamiqSans',
               color: Color.fromARGB(255, 105, 105, 105)
             ),
